@@ -1,0 +1,27 @@
+{
+  "name": "mega-block-breaker",
+  "version": "1.0.0",
+  "description": "ブラウザで動作する大規模ブロック崩しゲーム。15,000個のブロックと26種類のアルファベット・パワーアップアイテムが特徴。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agenda23/mega-block-breaker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agenda23/mega-block-breaker/issues"
+  },
+  "homepage": "https://github.com/agenda23/mega-block-breaker#readme",
+  "devDependencies": {
+    "vite": "^8.0.10"
+  }
+}
