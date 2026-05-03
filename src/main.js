@@ -90,8 +90,8 @@ const PAUSE_MENU = {
   quit: { x: CONFIG.CANVAS_W / 2 - 80, y: CONFIG.CANVAS_H / 2 + 40, w: 160, h: 40 }
 };
 
-// UI表示用PAUSEボタンの領域
-const UI_PAUSE_BTN = { x: CONFIG.CANVAS_W / 2 - 30, y: 5, w: 60, h: 20 };
+// UI表示用PAUSEボタンの領域（少し大きめに描画）
+const UI_PAUSE_BTN = { x: CONFIG.CANVAS_W / 2 - 40, y: 0, w: 80, h: 28 };
 
 // GAMEOVERメニューのクリック領域定義
 const GAMEOVER_MENU = {
@@ -124,9 +124,10 @@ function handleInputPress(x, y) {
   } else if (currentState === GAME_STATE.CLEAR) {
     resetGame(GAME_STATE.TITLE);
   } else if (currentState === GAME_STATE.PLAYING) {
-    // 上部のPAUSEボタンクリック判定
-    if (x > UI_PAUSE_BTN.x && x < UI_PAUSE_BTN.x + UI_PAUSE_BTN.w &&
-        y > UI_PAUSE_BTN.y && y < UI_PAUSE_BTN.y + UI_PAUSE_BTN.h) {
+    // 上部のPAUSEボタンクリック判定（スマホ操作を考慮し、判定領域を上下左右に+20px広げる）
+    const hitPadding = 20;
+    if (x > UI_PAUSE_BTN.x - hitPadding && x < UI_PAUSE_BTN.x + UI_PAUSE_BTN.w + hitPadding &&
+        y > UI_PAUSE_BTN.y - hitPadding && y < UI_PAUSE_BTN.y + UI_PAUSE_BTN.h + hitPadding) {
       currentState = GAME_STATE.PAUSE;
       input.click = false; // ボタン押しによる発射を防ぐ
     }
@@ -637,10 +638,13 @@ function render() {
   // UI PAUSE Button
   if (currentState === GAME_STATE.PLAYING) {
     ctx.fillStyle = '#555';
-    ctx.fillRect(UI_PAUSE_BTN.x, UI_PAUSE_BTN.y, UI_PAUSE_BTN.w, UI_PAUSE_BTN.h);
+    // 枠線を少し丸めてボタンっぽくする
+    ctx.beginPath();
+    ctx.roundRect(UI_PAUSE_BTN.x, UI_PAUSE_BTN.y, UI_PAUSE_BTN.w, UI_PAUSE_BTN.h, [0, 0, 5, 5]);
+    ctx.fill();
     ctx.fillStyle = '#fff';
     ctx.textAlign = 'center';
-    ctx.fillText('PAUSE', CONFIG.CANVAS_W / 2, 23);
+    ctx.fillText('PAUSE', CONFIG.CANVAS_W / 2, 20);
   }
 }
 
